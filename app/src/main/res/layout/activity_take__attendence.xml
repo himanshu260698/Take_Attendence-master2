@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.technical.recyclerview.Take_Attendence"
+    android:orientation="horizontal"
+
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="#db482b"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/rollno"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:text="Roll Number"
+        android:gravity="center"
+        android:textStyle="bold"
+        />
+
+
+    <TextView
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="260dp"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Status"
+        android:textStyle="bold"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/rollno"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://E:\AndroidProjects\RecyclerView-master\RecyclerView.iml" filepath="E:\AndroidProjects\RecyclerView-master\RecyclerView.iml" />
+      <module fileurl="file://E:\AndroidProjects\Take_Attendence-master\RecyclerView-master.iml" filepath="E:\AndroidProjects\Take_Attendence-master\RecyclerView-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Take_Attendence-master.iml" filepath="$PROJECT_DIR$/Take_Attendence-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
