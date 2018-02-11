@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,21 +21,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     Toolbar toolbar;
     EditText No_of_rannges;
-    public int FromeditTextCount=1;
-    public int ToeditTextCount=1;
+    public int FromeditTextCount=0;
+    public int ToeditTextCount=0;
     public int TextViewCount=1;
     int no_of_ranges;
     LinearLayout myLayout;
-    RelativeLayout relativeLayout;
+    TextView myTextView ;
+    EditText Section_Name;
+    EditText myEditText_To;
+    DBHelper dbHelper;
+
+
+
 
 
     @Override
@@ -42,85 +53,57 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //No_of_rannges=(EditText)findViewById(R.id.No_of_ranges);
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle("Set Ranges");
-        LinearLayout myLayout = (LinearLayout) findViewById(R.id.mylayout);
-        RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.RelativeLayout);
-    }
+        setTitle("Set Sections");
 
-    public void TakeAttendence(View view){
-        startActivity(new Intent(this,Take_Attendence.class));
-    }
-
-    public void deleteView(){
-
-
-        LinearLayout myLayout = (LinearLayout) findViewById(R.id.mylayout);
-        int x = myLayout.getChildCount();
-
-        if (x > 0) {
-            myLayout.removeViewAt(x-1);
-            myLayout.removeViewAt(x-2);
-            myLayout.removeViewAt(x-3);
-            --FromeditTextCount;
-            --TextViewCount;
-            --ToeditTextCount;
-        }else{
-            Toast.makeText(this,"No Subject to Delete" , Toast.LENGTH_SHORT).show();
-        }
-
-
+        dbHelper = new DBHelper(this);
 
     }
 
-    public void addRange(){
+    public void SetRange(View view)
+    {
+        Intent i=new Intent(this,SetRange.class);
+
+        startActivity(i);
+    }
+
+    public void addSections(){
         try{
 
-            LinearLayout myLayout = (LinearLayout) findViewById(R.id.mylayout);
+            myLayout = (LinearLayout) findViewById(R.id.mylayout);
 
-      //  no_of_ranges = Integer.parseInt(No_of_rannges.getText().toString());
+            //  no_of_ranges = Integer.parseInt(No_of_rannges.getText().toString());
 
 
-            TextView myTextView =new TextView(this);
-            EditText myEditText_From = new EditText(this);
-            EditText myEditText_To =new EditText(this);
+            myTextView =new TextView(this);
+            Section_Name = new EditText(this);
+            myEditText_To =new EditText(this);
             // Pass it an Activity or Context
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             myTextView.setLayoutParams(layoutParams);
             myTextView.setTextSize(20);
-            myTextView.setText("Enter Range" + FromeditTextCount);
+            myTextView.setText("Enter Section" + (FromeditTextCount+1));
             myTextView.setPadding(20, 25, 20, 25);
             myTextView.setId(TextViewCount);
             layoutParams.setMargins(40, (10 ), 40, 20);
             myTextView.setBackgroundResource(R.drawable.edit);
             myLayout.addView(myTextView);
 
-            myEditText_From.setLayoutParams(layoutParams);
-            myEditText_From.setTextSize(20);
-            myEditText_From.setHint("From");
-            myEditText_From.setPadding(20, 25, 20, 25);
-            myEditText_From.setId(FromeditTextCount);
+            Section_Name.setLayoutParams(layoutParams);
+            Section_Name.setTextSize(20);
+            Section_Name.setHint("Section Name");
+            Section_Name.setPadding(20, 25, 20, 25);
+            Section_Name.setId(FromeditTextCount);
             layoutParams.setMargins(40, (10 ), 40, 20);
-            myEditText_From.setBackgroundResource(R.drawable.edit2);
-            myLayout.addView(myEditText_From);
-
-            myEditText_To.setLayoutParams(layoutParams);
-            myEditText_To.setTextSize(20);
-            myEditText_To.setHint("To");
-            myEditText_To.setPadding(20, 25, 20, 25);
-            myEditText_To.setId(ToeditTextCount);
-            layoutParams.setMargins(40, (10 ), 40, 20);
-            myEditText_To.setBackgroundResource(R.drawable.edit2);
-            myLayout.addView(myEditText_To);
-
+            Section_Name.setBackgroundResource(R.drawable.edit2);
+            myLayout.addView(Section_Name);
 
             FromeditTextCount++;
             TextViewCount++;
-            ToeditTextCount++;
+
 
 
         }catch (NumberFormatException e){
@@ -129,6 +112,52 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void deleteSections(){
+
+        myLayout = (LinearLayout) findViewById(R.id.mylayout);
+        int x = myLayout.getChildCount();
+        Log.i("CHILD COUNT",""+x);
+
+        if (x > 0) {
+            myLayout.removeViewAt(x-1);
+            myLayout.removeViewAt(x-2);
+
+
+
+
+            --FromeditTextCount;
+            --TextViewCount;
+
+        }else{
+            Toast.makeText(this,"No Subject to Delete" , Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void saveSections(){
+
+        int x = myLayout.getChildCount();
+
+        for (int p=1;x-p>=0;p=p+2) {
+            EditText value = (EditText) myLayout.getChildAt(x - p);
+            Log.i("Section Names", value.getText().toString());
+
+
+            if (value.getText().toString() != "") {
+
+                dbHelper.addSection(value.getText().toString());
+
+                dbHelper.CreateRange(value.getText().toString());
+
+                Toast.makeText(this, "Sections Saved!!", Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(this, "Enter Valid Details!!", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -139,13 +168,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.add) {
+        if(id==R.id.add){
 
-           addRange();
+            addSections();
         }
-        if (id==R.id.delete){
-            deleteView();
+        if(id==R.id.delete){
+
+            deleteSections();
         }
+        if (id==R.id.Save){
+           saveSections();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

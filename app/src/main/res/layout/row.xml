@@ -33,7 +33,7 @@
          android:layout_marginTop="10dp"
          android:text="Present"
          android:textStyle="bold"
-         android:buttonTint="#00c300"/>
+         android:buttonTint="@color/c6"/>
 
  </RelativeLayout>
 

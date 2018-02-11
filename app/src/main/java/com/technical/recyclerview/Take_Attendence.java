@@ -6,10 +6,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,12 +25,17 @@ import java.util.Calendar;
 
 public class Take_Attendence extends AppCompatActivity {
 
-    ArrayList<String> names;
+    ArrayList<String> rollNo;
+
+    String value;
+    String  value1;
 
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mlayoutManager;
     RecyclerView.Adapter mAdapter;
+
+
 
     Toolbar toolbar;
 
@@ -34,6 +47,8 @@ public class Take_Attendence extends AppCompatActivity {
         toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mRecyclerView=(RecyclerView)findViewById(R.id.recyclerView);
+
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
@@ -42,27 +57,28 @@ public class Take_Attendence extends AppCompatActivity {
 
         setTitle(formattedDate);
 
-        names = new ArrayList<String>();
+        //Get the bundle
+        Bundle bundle = getIntent().getExtras();
+
+        //Extract the data…
+        int No_of_ranges = ((bundle.getInt("getChild"))/3);
 
 
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
+        rollNo = new ArrayList<String>();
 
+        for (int i = 1; i <=10; i++) {
 
-
-        for (int i = 1; i <= 10; i++) {
-
-            names.add("" + i);
-
+            rollNo.add(""+ i);
         }
 
 
         mRecyclerView.setHasFixedSize(true);
         mlayoutManager = new LinearLayoutManager(this);
 
-        mAdapter = new MainAdapter(names);
+        mAdapter = new MainAdapter(rollNo);
         mRecyclerView.setLayoutManager(mlayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 

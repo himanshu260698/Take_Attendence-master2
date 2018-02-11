@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,13 +9,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.technical.recyclerview.MainActivity">
 
-<RelativeLayout
+    <RelativeLayout
 
-    android:id="@+id/RelativeLayout"
+        android:id="@+id/RelativeLayout"
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
@@ -32,15 +31,15 @@
 
 
 
-                        <LinearLayout
-                            android:layout_below="@+id/toolbar"
-                            android:layout_margin="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/mylayout"
-                            android:orientation="vertical">
+        <LinearLayout
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mylayout"
+            android:orientation="vertical">
 
-                        </LinearLayout>
+        </LinearLayout>
 
 
 
@@ -48,17 +47,18 @@
             android:layout_below="@+id/mylayout"
             android:layout_width="150dp"
             android:layout_height="70dp"
-            android:text="Set Ranges"
+            android:text="Take Attendence"
             android:layout_marginLeft="120dp"
             android:textStyle="bold"
             android:gravity="center"
             android:background="@color/c4"
 
-            android:onClick="SetRange"/>
+            android:onClick="TakeAttendence"/>
 
 
 
 
 
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>
+

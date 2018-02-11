@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "269330283167",
+    "firebase_url": "https://takeattendence-master.firebaseio.com",
+    "project_id": "takeattendence-master",
+    "storage_bucket": "takeattendence-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269330283167:android:7715739650dcc56a",
+        "android_client_info": {
+          "package_name": "com.technical.recyclerview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269330283167-91rarl8kag1s1urplcqcthu64gftfj7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technical.recyclerview",
+            "certificate_hash": "7a98cb560516c43a407bbbfef94f04fd7e4a725d"
+          }
+        },
+        {
+          "client_id": "269330283167-1tl605hc4sh4cbg1u745b6i0ntrhfgg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYBnvIPUhTT6tvff-VehdjX_y5mOcZA-Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269330283167-1tl605hc4sh4cbg1u745b6i0ntrhfgg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
